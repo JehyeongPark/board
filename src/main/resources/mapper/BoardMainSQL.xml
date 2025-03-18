@@ -11,6 +11,14 @@
             COMMENT
         FROM
             BOARD
+        WHERE
+            1=1
+            <if test="selectSrch == 'T' and writeSrch != null and writeSrch != ''">
+                AND TITLE LIKE CONCAT('%', #{writeSrch}, '%')
+            </if>
+            <if test="selectSrch == 'C' and writeSrch != null and writeSrch != ''">
+                AND COMMENT LIKE CONCAT('%', #{writeSrch}, '%')
+            </if>
     </select>
 
     <insert id="insertBoard" parameterType="map">

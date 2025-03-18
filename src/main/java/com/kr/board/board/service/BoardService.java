@@ -33,6 +33,10 @@ public class BoardService {
         boardMapper.boardDelete(requestMap);
     }
 
+    public void boardSrch(Map<String, Object> requestMap){
+        boardMapper.boardSrch(requestMap);
+    }
+
 
 
 }

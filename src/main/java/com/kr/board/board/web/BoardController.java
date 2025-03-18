@@ -64,6 +64,13 @@ public class BoardController {
         return ResponseEntity.ok(requestMap);
     }
 
+    @PostMapping("/boardSrch")
+    public ResponseEntity<Map<String, Object>> boardSrch(@RequestBody Map<String, Object> requestMap) {
+        boardService.boardMain(requestMap);
+
+        return ResponseEntity.ok(requestMap);
+    }
+
 
 }
 
