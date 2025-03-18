@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kr.board.board.mapper.BoardMapper">
+
+    <select id="boardMain" parameterType="map" resultType="map">
+        <!-- BoardMapper.boardMain : 게시판 전체 조회 -->
+        SELECT
+            NO,
+            TITLE,
+            COMMENT
+        FROM
+            BOARD
+    </select>
+
+    <insert id="insertBoard" parameterType="map">
+        <!-- BoardMapper.insertBoard : 저장 -->
+        INSERT INTO
+            BOARD
+        (
+            TITLE,
+            COMMENT
+        )
+            VALUES
+        (
+            #{title},
+            #{comment}
+        )
+    </insert>
+
+    <select id="boardDetail" parameterType="map" resultType="map">
+        <!-- BoardMapper.boardDetail : 상세보기 -->
+        SELECT
+            NO,
+            TITLE,
+            COMMENT
+        FROM
+            BOARD
+        WHERE
+            NO = #{no}
+    </select>
+
+    <update id="boardUpdate" parameterType="map">
+        <!-- BoardMapper.boardUpdate : 수정 -->
+        UPDATE BOARD
+        SET
+            TITLE = #{title},         <!-- 제목 -->
+            COMMENt = #{comment}      <!-- 내용 -->
+        WHERE
+            NO = #{no}
+    </update>
+
+    <delete id="boardDelete" parameterType="map">
+        <!-- BoardMapper.boardDelete : 삭제 -->
+        DELETE
+        FROM
+            BOARD
+        WHERE
+            NO = #{no}
+    </delete>
+
+</mapper>

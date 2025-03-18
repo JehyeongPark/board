@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <!-- JavaScript 파일 연결 -->
+    <script th:src="@{/board/js/BoardMain.js}" defer></script>
+</head>
+    <body>
+    <h1>게시판</h1>
+        <button id="btnWrite">글쓰기</button>
+        <table>
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${detail}">
+                <td th:text="${board.NO}"></td>
+                <td>
+                    <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.TITLE}"></a>
+                </td>
+                <td th:text="${board.COMMENT}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

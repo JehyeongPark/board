@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세보기</title>
+    <!-- JavaScript 파일 연결 -->
+    <script th:src="@{/board/js/BoardDetail.js}" defer></script>
+</head>
+<body>
+<h1>상세보기</h1>
+    <div th:each="board : ${detail}">
+    <input th:value="${board.NO}" type="hidden" id="No">
+        <span>제목</span>
+        <input th:value="${board.TITLE}" id="writeTitle" type="text">
+        <span>내용</span>
+        <input th:value="${board.COMMENT}" id="writeContent" type="text">
+    </div>
+
+    <div>
+        <button id="btnUpdate">수정</button>
+        <button id="btnDelete">삭제</button>
+        <button id="btnClose">닫기</button>
+    </div>
+</body>
+</html>
