@@ -18,6 +18,5 @@ public interface BoardMapper {
 
     public void boardDelete(Map<String, Object> requestMap);
 
-    public void boardSrch(Map<String, Object> requestMap);
 
 }
