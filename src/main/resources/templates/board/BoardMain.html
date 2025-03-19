@@ -10,15 +10,17 @@
     <body>
     <h1>게시판</h1>
         <button type="button" id="btnWrite">글쓰기</button>
-        <div id="allSrch">
-            <select id="selectSrch">
+    <div>
+        <form th:action="@{/}" method="get">
+            <select id="selectSrch" name="selectSrch">
                 <option value="">전체</option>
-                <option value="T">제목</option>
-                <option value="C">내용</option>
+                <option value=1>제목</option>
+                <option value=2>내용</option>
             </select>
-            <input id="writeSrch" type="text">
-            <button type="button" id="btnSrch">확인</button>
-        </div>
+            <input id="writeSrch" type="text" name="writeSrch">
+            <button type="submit" id="btnSrch">확인</button>
+         </form>
+    </div>
         <table>
             <thead>
             <tr>
@@ -28,14 +30,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="board : ${detail}">
-                <td th:text="${board.NO}"></td>
-                <td>
-                    <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.TITLE}"></a>
-                </td>
-                <td th:text="${board.COMMENT}"></td>
-            </tr>
+                <tr th:if="${#lists.isEmpty(detail)}">
+                    <td colspan="3">No data.</td>
+                </tr>
+                <tr th:each="board : ${detail}" th:unless="${#lists.isEmpty(detail)}">
+                    <td th:text="${board.NO}"></td>
+                    <td>
+                        <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.TITLE}"></a>
+                    </td>
+                    <td th:text="${board.COMMENT}"></td>
+                </tr>
             </tbody>
         </table>
+        <div> Total : <span th:text="${boardCount}"></span> </div>
+        <div for="paging">
+
+        </div>
     </body>
 </html>

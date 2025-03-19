@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kr.board.board.mapper.BoardMapper">
+<mapper namespace="com.kr.board.mapper.BoardMapper">
+
+    <select id="boardMainCount" parameterType="map" resultType="int">
+        <!-- BoardMapper.boardMainCount : 게시판 조회 카운트 -->
+        SELECT COUNT(*)
+            NO,
+            TITLE,
+            COMMENT
+        FROM
+            BOARD
+        WHERE
+            1=1
+            <if test="selectSrch == null or selectSrch == ''">
+            </if>
+            <if test="selectSrch == '' and writeSrch != null and writeSrch != ''">
+                AND (TITLE LIKE CONCAT('%', #{writeSrch}, '%') OR COMMENT LIKE CONCAT('%', #{writeSrch}, '%'))
+            </if>
+            <if test="selectSrch == 1 and writeSrch != null and writeSrch != ''">
+                AND TITLE LIKE CONCAT('%', #{writeSrch}, '%')
+            </if>
+            <if test="selectSrch == 2 and writeSrch != null and writeSrch != ''">
+                AND COMMENT LIKE CONCAT('%', #{writeSrch}, '%')
+            </if>
+    </select>
 
     <select id="boardMain" parameterType="map" resultType="map">
-        <!-- BoardMapper.boardMain : 게시판 전체 조회 -->
+        <!-- BoardMapper.boardMain : 게시판 조회 -->
         SELECT
             NO,
             TITLE,
@@ -13,10 +36,15 @@
             BOARD
         WHERE
             1=1
-            <if test="selectSrch == 'T' and writeSrch != null and writeSrch != ''">
+            <if test="selectSrch == null or selectSrch == ''">
+            </if>
+            <if test="selectSrch == '' and writeSrch != null and writeSrch != ''">
+                AND (TITLE LIKE CONCAT('%', #{writeSrch}, '%') OR COMMENT LIKE CONCAT('%', #{writeSrch}, '%'))
+            </if>
+            <if test="selectSrch == 1 and writeSrch != null and writeSrch != ''">
                 AND TITLE LIKE CONCAT('%', #{writeSrch}, '%')
             </if>
-            <if test="selectSrch == 'C' and writeSrch != null and writeSrch != ''">
+            <if test="selectSrch == 2 and writeSrch != null and writeSrch != ''">
                 AND COMMENT LIKE CONCAT('%', #{writeSrch}, '%')
             </if>
     </select>

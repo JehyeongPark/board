@@ -83,7 +83,7 @@
         .then(response => response.json())
         .then(result => {
             console.log('Success:', result);
-            alert('저장이 완료되었습니다.');
+            alert('수정이 완료되었습니다.');
             if (window.opener) { // 부모 창이 존재하면
                 window.opener.location.reload(); // 부모 창 새로고침
             }

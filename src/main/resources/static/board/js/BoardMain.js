@@ -2,7 +2,7 @@
 
     let btnWrite = document.getElementById("btnWrite");     // 글쓰기
     let btnDetail = document.querySelectorAll(".btnDetail");  // 상세보기
-    let btnSrch = document.getElementById("btnSrch");     // 확인
+    /*let btnSrch = document.getElementById("btnSrch");     // 확인*/
 
     document.addEventListener('DOMContentLoaded', function() {
         addEventListenerCrudBtn();
@@ -11,7 +11,7 @@
     function addEventListenerCrudBtn(){
         btnWrite.addEventListener('click', fnBtnWrite);
         btnDetail.forEach(btn => {btn.addEventListener('click', fnBtnDetail);});
-        btnSrch.addEventListener('click', fnBtnSrch);
+        /*btnSrch.addEventListener('click', fnBtnSrch);*/
     }
 
 /* 글쓰기 버튼 */
@@ -31,6 +31,7 @@
     }
 
 /* 확인 버튼 */
+/*
     function fnBtnSrch(){
 
         let selectSrch = document.getElementById("selectSrch").value;
@@ -56,3 +57,4 @@
             alert('저장 중 오류가 발생했습니다.');
         });
     }
+*/
