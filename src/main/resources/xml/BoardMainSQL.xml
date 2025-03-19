@@ -41,10 +41,10 @@
             <if test="selectSrch == '' and writeSrch != null and writeSrch != ''">
                 AND (TITLE LIKE CONCAT('%', #{writeSrch}, '%') OR COMMENT LIKE CONCAT('%', #{writeSrch}, '%'))
             </if>
-            <if test="selectSrch == 1 and writeSrch != null and writeSrch != ''">
+            <if test="selectSrch == 'T' and writeSrch != null and writeSrch != ''">
                 AND TITLE LIKE CONCAT('%', #{writeSrch}, '%')
             </if>
-            <if test="selectSrch == 2 and writeSrch != null and writeSrch != ''">
+            <if test="selectSrch == 'C' and writeSrch != null and writeSrch != ''">
                 AND COMMENT LIKE CONCAT('%', #{writeSrch}, '%')
             </if>
     </select>

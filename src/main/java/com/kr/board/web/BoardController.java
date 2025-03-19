@@ -2,6 +2,7 @@ package com.kr.board.web;
 
 import com.kr.board.service.BoardService;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
@@ -22,9 +24,17 @@ public class BoardController {
         List<Map<String, Object>> rtnList = boardService.boardMain(requestMap);
         int boardCount = boardService.boardMainCount(requestMap);
 
+        log.warn("Converted selectSrch111:", requestMap);
+
+        // 검색조건 값 String으로 변환
+        String selectSrch = String.valueOf(requestMap.get("selectSrch"));
+        requestMap.put("selectSrch", selectSrch);
+
+        log.warn("Converted selectSrch: {}", selectSrch);
+        log.warn("Converted selectSrch:", requestMap);
+
         // 게시판 조회
         model.addAttribute("detail", rtnList);
-
         // 게시판 조회 카운트
         model.addAttribute("boardCount", boardCount);
 
@@ -76,7 +86,7 @@ public class BoardController {
     }
 
 /*
-    // ajax 이용한 검색조건
+    // 게시글 검색 조건 AJAX
     @PostMapping("/boardSrch")
     public ResponseEntity<Map<String, Object>> boardSrch(@RequestBody Map<String, Object> requestMap) {
         boardService.boardMain(requestMap);
