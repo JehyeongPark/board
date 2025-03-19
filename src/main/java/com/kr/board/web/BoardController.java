@@ -24,7 +24,7 @@ public class BoardController {
         List<Map<String, Object>> rtnList = boardService.boardMain(requestMap);
         int boardCount = boardService.boardMainCount(requestMap);
 
-        log.warn("Converted selectSrch111:", requestMap);
+        log.warn("Converted selectSrch11:", requestMap);
 
         // 검색조건 값 String으로 변환
         String selectSrch = String.valueOf(requestMap.get("selectSrch"));
