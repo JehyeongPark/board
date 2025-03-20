@@ -3,6 +3,14 @@
 
 <mapper namespace="com.kr.board.mapper.BoardMapper">
 
+    <resultMap id="boardMap" type="java.util.HashMap">
+        <result column="NO" property="no"/>
+        <result column="TITLE" property="title"/>
+        <result column="COMMENT" property="comment"/>
+        <result column="REG_DTM" property="regDtm"/>
+        <result column="CHG_DTM" property="chgDtm"/>
+    </resultMap>
+
     <select id="boardMainCount" parameterType="map" resultType="int">
         <!-- BoardMapper.boardMainCount : 게시판 조회 카운트 -->
         SELECT
@@ -28,14 +36,14 @@
         </if>
     </select>
 
-    <select id="boardMain" parameterType="map" resultType="map">
+    <select id="boardMain" parameterType="map" resultMap="boardMap">
         <!-- BoardMapper.boardMain : 게시판 조회 -->
         SELECT
             NO,
             TITLE,
             COMMENT,
-            REG_DTM,
-            CHG_DTM
+            COALESCE(REG_DTM, '') AS REG_DTM,   <!-- NULL 값이면 빈 문자열 반환 -->
+            COALESCE(CHG_DTM, '') AS CHG_DTM    <!-- NULL 값이면 빈 문자열 반환 -->
         FROM
             BOARD
         WHERE

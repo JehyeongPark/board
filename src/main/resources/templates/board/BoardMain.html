@@ -49,15 +49,15 @@
                 <td colspan="5">NO DATA</td>
             </tr>
             <tr th:each="board : ${detail}" th:unless="${#lists.isEmpty(detail)}">
-                <td th:text="${board.NO}"></td>
+                <td th:text="${board.no}"></td>
                 <td>
-                    <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.TITLE}"></a>
+                    <a href="#" class="btnDetail" th:data-no="${board.no}" th:text="${board.title}"></a>
                 </td>
                 <td>
-                    <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.COMMENT}"></a>
+                    <a href="#" class="btnDetail" th:data-no="${board.no}" th:text="${board.comment}"></a>
                 </td>
-                <td th:text="${board.['REG_DTM']}"></td>
-                <td th:text="${board.['CHG_DTM']}"></td>
+                <td th:text="${board.regDtm}"></td>
+                <td th:text="${board.chgDtm}"></td>
             </tr>
             </tbody>
         </table>
