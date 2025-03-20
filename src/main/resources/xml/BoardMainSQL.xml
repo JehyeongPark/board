@@ -5,10 +5,8 @@
 
     <select id="boardMainCount" parameterType="map" resultType="int">
         <!-- BoardMapper.boardMainCount : 게시판 조회 카운트 -->
-        SELECT COUNT(*)
-            NO,
-            TITLE,
-            COMMENT
+        SELECT
+            COUNT(*)
         FROM
             BOARD
         WHERE
@@ -24,6 +22,10 @@
             <if test='selectSrch == "C" and writeSrch != null and writeSrch != ""'>
                 AND COMMENT LIKE CONCAT('%', #{writeSrch}, '%')
             </if>
+        ORDER BY NO DESC
+        <if test="limit != null and offset != null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
     </select>
 
     <select id="boardMain" parameterType="map" resultType="map">
@@ -47,6 +49,10 @@
             <if test='selectSrch == "C" and writeSrch != null and writeSrch != ""'>
                 AND COMMENT LIKE CONCAT('%', #{writeSrch}, '%')
             </if>
+        ORDER BY NO DESC
+        <if test="limit != null and offset != null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
     </select>
 
     <insert id="insertBoard" parameterType="map">
@@ -57,7 +63,7 @@
             TITLE,
             COMMENT
         )
-            VALUES
+        VALUES
         (
             #{title},
             #{comment}

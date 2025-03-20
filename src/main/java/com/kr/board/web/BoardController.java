@@ -20,14 +20,26 @@ public class BoardController {
 
     /* 메인 */
     @GetMapping("/")
-    public String boardMain(@RequestParam Map<String, Object> requestMap, Model model) {
-        List<Map<String, Object>> rtnList = boardService.boardMain(requestMap);
-        int boardCount = boardService.boardMainCount(requestMap);
+    public String boardMain(
+            @RequestParam Map<String, Object> requestMap,
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+            Model model) {
 
-        // 게시판 조회
+        int totalCount = boardService.boardMainCount(requestMap);
+        int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        int offset = (page - 1) * pageSize;
+
+        requestMap.put("offset", offset);
+        requestMap.put("limit", pageSize);
+
+        List<Map<String, Object>> rtnList = boardService.boardMain(requestMap);
+
         model.addAttribute("detail", rtnList);
-        // 게시판 조회 카운트
-        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("boardCount", totalCount);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", pageSize);
 
         return "board/BoardMain";
     }
