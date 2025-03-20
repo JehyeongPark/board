@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,17 +22,26 @@ public class BoardController {
     /* 메인 */
     @GetMapping("/")
     public String boardMain(
-            @RequestParam Map<String, Object> requestMap,
-            @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-            Model model) {
+                    @RequestParam Map<String, Object> requestMap,
+                    @RequestParam(name = "page", defaultValue = "1") int page,
+                    @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                    Model model) {
 
         int totalCount = boardService.boardMainCount(requestMap);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
         int offset = (page - 1) * pageSize;
 
+        // 페이지 블록 설정
+        int blockSize = 5; // 한 번에 표시할 페이지 수
+        int startPage = ((page - 1) / blockSize) * blockSize + 1;
+        int endPage = Math.min(startPage + blockSize - 1, totalPages);
+
         requestMap.put("offset", offset);
         requestMap.put("limit", pageSize);
+
+        System.out.println("검색 조건: " + requestMap.get("selectSrch"));
+        System.out.println("검색어: " + requestMap.get("writeSrch"));
+
 
         List<Map<String, Object>> rtnList = boardService.boardMain(requestMap);
 
@@ -40,6 +50,8 @@ public class BoardController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "board/BoardMain";
     }

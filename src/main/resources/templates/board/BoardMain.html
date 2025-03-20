@@ -46,11 +46,37 @@
         <div> Total : <span th:text="${boardCount}"></span> </div>
     <!-- 페이징 -->
     <div>
-        <button th:if="${currentPage > 1}" th:onclick="|location.href='@{/(page=${currentPage - 1}, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">이전</button>
+        <!-- 첫 페이지 이동 -->
+        <button th:if="${currentPage > 1}"
+                th:onclick="|location.href='@{/(page=1, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">
+            첫 페이지
+        </button>
 
-        <span th:text="|${currentPage} / ${totalPages}|"></span>
+        <!-- 이전 블록 이동 -->
+        <button th:if="${startPage > 1}"
+                th:onclick="|location.href='@{/(page=${startPage - 1}, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">
+            이전
+        </button>
 
-        <button th:if="${currentPage < totalPages}" th:onclick="|location.href='@{/(page=${currentPage + 1}, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">다음</button>
+        <!-- 페이지 리스트 -->
+        <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+    <button th:classappend="${i == currentPage} ? 'active'"
+            th:onclick="|location.href='@{/(page=${i}, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|"
+            th:text="${i}">
+    </button>
+</span>
+
+        <!-- 다음 블록 이동 -->
+        <button th:if="${endPage < totalPages}"
+                th:onclick="|location.href='@{/(page=${endPage + 1}, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">
+            다음
+        </button>
+
+        <!-- 마지막 페이지 이동 -->
+        <button th:if="${currentPage < totalPages}"
+                th:onclick="|location.href='@{/(page=${totalPages}, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">
+            마지막 페이지
+        </button>
     </div>
     </body>
 </html>
