@@ -1,5 +1,160 @@
-button.active {
-    font-weight: bold;
+/* 전체 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 기본 텍스트 색상 유지 */
+}
+
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.buttonArea{
+    margin-left:86.2%;
+}
+
+/* select 기본 스타일 */
+#selectSrch {
+    appearance: none; /* 기본 스타일 제거 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: white;
+    font-family: 'Arial', sans-serif; /* 폰트 적용 */
+    font-size: 14px;
+    color: black;
+    padding: 8px 30px 8px 10px; /* 오른쪽 공간 확보 (화살표 아이콘 공간) */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 120px; /* 원하는 크기로 조정 */
+}
+
+/* select 요소를 감싸는 부모 div */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* 화살표 아이콘 추가 */
+.select-wrapper::after {
+    content: '▼'; /* 유니코드 화살표 */
+    font-size: 12px;
+    color: black;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* 클릭 방지 */
+}
+
+
+/* 버튼 스타일 */
+button {
     background-color: #007bff;
     color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 검색창 스타일 */
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 게시판 리스트 스타일 */
+table {
+    width: 80%;
+    margin: 0 auto;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.totalArea{
+    margin-left: 10%;
+    margin-top: 10px;
+}
+
+
+.pagingArea{
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+/* 페이지네이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagingArea button {
+    background-color: white; /* 배경색 흰색 */
+    color: gray; /* 글자색 회색 */
+    border: 1px solid #ccc; /* 테두리 추가 */
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.pagingArea button:hover {
+    background-color: #e9ecef; /* 마우스 오버 시 약간 어두운 회색 */
+}
+
+.pagingArea button.active {
+    background-color: #007bff !important; /* 활성화된 페이지(첫/마지막) 버튼 색 유지 */
+    color: white !important;
+    font-weight: bold;
 }

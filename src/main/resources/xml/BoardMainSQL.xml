@@ -33,7 +33,9 @@
         SELECT
             NO,
             TITLE,
-            COMMENT
+            COMMENT,
+            REG_DTM,
+            CHG_DTM
         FROM
             BOARD
         WHERE
@@ -61,12 +63,14 @@
             BOARD
         (
             TITLE,
-            COMMENT
+            COMMENT,
+            REG_DTM
         )
         VALUES
         (
             #{title},
-            #{comment}
+            #{comment},
+            NOW()
         )
     </insert>
 
@@ -87,7 +91,8 @@
         UPDATE BOARD
         SET
             TITLE = #{title},         <!-- 제목 -->
-            COMMENt = #{comment}      <!-- 내용 -->
+            COMMENt = #{comment},      <!-- 내용 -->
+            CHG_DTM = NOW()       <!-- 수정일 -->
         WHERE
             NO = #{no}
     </update>

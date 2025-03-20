@@ -1,0 +1,86 @@
+/* 글쓰기 페이지 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+/* 입력 폼 스타일 */
+div:first-of-type {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 500px; /* 크기 키우기 */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+span {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* 좌우 여백 맞추기 */
+}
+
+#writeContent {
+    height: 100px; /* 내용 입력창 높이 조정 */
+}
+
+/* 버튼 스타일 */
+div:last-child {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    width: 500px; /* 크기 키우기 */
+    margin-top: 20px;
+    gap: 10px; /* 버튼 간격 조정 */
+}
+
+/* 기본 버튼 스타일 */
+button {
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 48%;
+}
+
+/* 글쓰기 버튼 (파란색) */
+button:not(#btnClose) {
+    background-color: #007bff;
+}
+
+button:not(#btnClose):hover {
+    background-color: #0056b3;
+}
+
+/* 닫기 버튼 (회색) */
+#btnClose {
+    background-color: #6c757d;
+}
+
+#btnClose:hover {
+    background-color: #5a6268;
+}

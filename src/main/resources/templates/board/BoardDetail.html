@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>상세보기</title>
+    <!-- css 파일 연결 -->
+    <link rel="stylesheet" th:href="@{/board/css/BoardDetail.css}">
     <!-- JavaScript 파일 연결 -->
     <script th:src="@{/board/js/BoardDetail.js}" defer></script>
 </head>
 <body>
 <h1>상세보기</h1>
     <div th:each="board : ${detail}">
-    <input th:value="${board.NO}" type="hidden" id="No">
+    <input type="hidden" id="No" th:value="${board.NO}">
         <span>제목</span>
-        <input th:value="${board.TITLE}" id="writeTitle" type="text">
+        <input  id="writeTitle" th:value="${board.TITLE}" type="text">
         <span>내용</span>
-        <input th:value="${board.COMMENT}" id="writeContent" type="text">
+        <textarea id="writeContent" th:text="${board.COMMENT}" ></textarea>
     </div>
 
     <div>

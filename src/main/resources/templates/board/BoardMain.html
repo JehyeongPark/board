@@ -4,48 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
+    <!-- css 파일 연결 -->
+    <link rel="stylesheet" th:href="@{/board/css/BoardMain.css}">
     <!-- JavaScript 파일 연결 -->
-    <script th:src="@{/board/css/BoardMain.css}" ></script>
     <script th:src="@{/board/js/BoardMain.js}" defer></script>
 </head>
     <body>
     <h1>게시판</h1>
+    <div class="buttonArea">
         <button type="button" id="btnWrite">글쓰기</button>
+    </div>
     <div>
         <form th:action="@{/}" method="get">
-            <select id="selectSrch" name="selectSrch">
-                <option value="">전체</option>
-                <option value="T">제목</option>
-                <option value="C">내용</option>
-            </select>
+            <div class="select-wrapper">
+                <select id="selectSrch" name="selectSrch">
+                    <option value="">전체</option>
+                    <option value="T">제목</option>
+                    <option value="C">내용</option>
+                </select>
+            </div>
             <input id="writeSrch" type="text" name="writeSrch">
             <button type="submit" id="btnSrch">확인</button>
          </form>
     </div>
         <table>
+            <colgroup>
+                <col style="width: 8%;">
+                <col style="width: 22%;">
+                <col style="width: 34%;">
+                <col style="width: 18%;">
+                <col style="width: 18%;">
+            </colgroup>
             <thead>
             <tr>
                 <th>번호</th>
                 <th>제목</th>
                 <th>내용</th>
+                <th>등록일</th>
+                <th>수정일</th>
             </tr>
             </thead>
             <tbody>
-                <tr th:if="${#lists.isEmpty(detail)}">
-                    <td colspan="3">== NO DATA ==</td>
-                </tr>
-                <tr th:each="board : ${detail}" th:unless="${#lists.isEmpty(detail)}">
-                    <td th:text="${board.NO}"></td>
-                    <td>
-                        <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.TITLE}"></a>
-                    </td>
-                    <td th:text="${board.COMMENT}"></td>
-                </tr>
+            <tr th:if="${#lists.isEmpty(detail)}">
+                <td colspan="5">NO DATA</td>
+            </tr>
+            <tr th:each="board : ${detail}" th:unless="${#lists.isEmpty(detail)}">
+                <td th:text="${board.NO}"></td>
+                <td>
+                    <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.TITLE}"></a>
+                </td>
+                <td>
+                    <a href="#" class="btnDetail" th:data-no="${board.NO}" th:text="${board.COMMENT}"></a>
+                </td>
+                <td th:text="${board.['REG_DTM']}"></td>
+                <td th:text="${board.['CHG_DTM']}"></td>
+            </tr>
             </tbody>
         </table>
-        <div> Total : <span th:text="${boardCount}"></span> </div>
+        <div class="totalArea"> Total : <span th:text="${boardCount}"></span> </div>
     <!-- 페이징 -->
-    <div>
+    <div class="pagingArea">
         <!-- 첫 페이지 이동 -->
         <button th:if="${currentPage > 1}"
                 th:onclick="|location.href='@{/(page=1, pageSize=${pageSize}, selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}'|">
