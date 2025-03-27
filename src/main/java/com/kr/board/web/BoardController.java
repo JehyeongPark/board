@@ -116,17 +116,6 @@ public class BoardController {
         return ResponseEntity.ok(requestMap);
     }
 
-/*
-    // 게시글 검색 조건 AJAX
-    @PostMapping("/boardSrch")
-    public ResponseEntity<Map<String, Object>> boardSrch(@RequestBody Map<String, Object> requestMap) {
-        boardService.boardMain(requestMap);
-
-
-        return ResponseEntity.ok(requestMap);
-    }
-*/
-    
     /* 파일 업로드 */
     @PostMapping("/boardUpload")
     public ResponseEntity<String> uploadFile(
@@ -164,7 +153,6 @@ public class BoardController {
                     .body("Failed to upload file. Please try again.");
         }
     }
-
 
     /* 엑셀 다운로드 */
     @GetMapping("/boardExcel")
