@@ -2,8 +2,13 @@ package com.kr.board.web;
 
 import com.kr.board.service.BoardService;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -121,7 +126,8 @@ public class BoardController {
         return ResponseEntity.ok(requestMap);
     }
 */
-
+    
+    /* 파일 업로드 */
     @PostMapping("/boardUpload")
     public ResponseEntity<String> uploadFile(
             @RequestParam("file") MultipartFile file,
@@ -160,5 +166,39 @@ public class BoardController {
     }
 
 
+    /* 엑셀 다운로드 */
+    @GetMapping("/boardExcel")
+    public void downloadBoardExcel(@RequestParam Map<String, Object> requestMap, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> boardList = boardService.boardMain(requestMap);
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Board List");
+
+        // 헤더 생성
+        Row header = sheet.createRow(0);
+        header.createCell(0).setCellValue("번호");
+        header.createCell(1).setCellValue("제목");
+        header.createCell(2).setCellValue("내용");
+        header.createCell(3).setCellValue("등록일");
+        header.createCell(4).setCellValue("수정일");
+
+        // 데이터 행 추가
+        int rowNum = 1;
+        for (Map<String, Object> board : boardList) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(String.valueOf(board.get("no")));
+            row.createCell(1).setCellValue(String.valueOf(board.get("title")));
+            row.createCell(2).setCellValue(String.valueOf(board.get("comment")));
+            row.createCell(3).setCellValue(String.valueOf(board.get("regDtm")));
+            row.createCell(4).setCellValue(String.valueOf(board.get("chgDtm")));
+        }
+
+        // 응답 헤더 설정
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=board_list.xlsx");
+
+        workbook.write(response.getOutputStream());
+        workbook.close();
+    }
 }
 

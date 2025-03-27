@@ -11,7 +11,7 @@
 </head>
     <body>
     <h1>게시판</h1>
-    <div class="buttonArea">
+        <div class="buttonArea"><button><a th:href="@{/boardExcel(selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}" class="btn btn-success">엑셀 다운로드</a></button>
         <button type="button" id="btnWrite">글쓰기</button>
     </div>
     <div>
