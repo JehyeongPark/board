@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글쓰기</title>
-    <!-- css 파일 연결 -->
+    <!-- jQuery 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- CSS 연결 -->
     <link rel="stylesheet" th:href="@{/board/css/BoardWrite.css}">
-    <!-- JavaScript 파일 연결 -->
+    <!-- JS 연결 -->
     <script th:src="@{/board/js/BoardWrite.js}" defer></script>
 </head>
 <body>
     <h1>글쓰기</h1>
-        <div>
+        <div class="formContainer">
             <span>제목</span>
             <input id="writeTitle" type="text">
             <span>내용</span>
             <textarea id="writeContent"></textarea>
+            <div class="fileArea">
+                <input type="file" class="fileRegist" id="fileUpload">
+            </div>
         </div>
-
         <div>
             <button id="btnSave">저장</button>
             <button id="btnClose">닫기</button>

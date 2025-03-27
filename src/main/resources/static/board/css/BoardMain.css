@@ -117,10 +117,6 @@ td {
     border-bottom: 1px solid #ddd;
 }
 
-/* 첫 번째 열(번호)만 왼쪽 정렬 */
-td:first-child {
-    text-align: left;
-}
 
 tbody tr:hover {
     background-color: #f1f1f1;

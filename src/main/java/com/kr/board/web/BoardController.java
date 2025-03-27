@@ -1,16 +1,24 @@
 package com.kr.board.web;
 
 import com.kr.board.service.BoardService;
+import jakarta.annotation.Resource;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -66,10 +74,13 @@ public class BoardController {
     /* 게시글 저장 AJAX */
     @PostMapping("/boardInsert")
     public ResponseEntity<Map<String, Object>> insertBoard(@RequestBody Map<String, Object> requestMap) {
-
         boardService.insertBoard(requestMap);
 
-        return ResponseEntity.ok(requestMap);
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("no", requestMap.get("no"));
+
+        return ResponseEntity.ok(response);
     }
 
     /* 게시글 상세보기 */
@@ -110,6 +121,55 @@ public class BoardController {
         return ResponseEntity.ok(requestMap);
     }
 */
+
+    @PostMapping("/boardUpload")
+    public ResponseEntity<String> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("oriName") String oriName,
+            @RequestParam("no") int no) {
+
+        String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 회사
+/*      String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 집 */
+        String extension = oriName.substring(oriName.lastIndexOf("."));
+        String newName = UUID.randomUUID().toString() + extension;
+
+        Path filePath = Paths.get(uploadPath, newName);
+
+        try {
+
+            // 로그 출력
+            log.warn("파일 업로드 시작 - oriName: {}, newName: {}, no: {}", oriName, newName, no);
+            // 파일 저장
+            Files.write(filePath, file.getBytes());
+
+            // 파일 정보 DB 저장을 위한 Map 생성
+            Map<String, Object> fileMap = new HashMap<>();
+            fileMap.put("oriName", oriName);
+            fileMap.put("newName", newName);
+            fileMap.put("no", no); // 게시글 번호 추가
+
+            // 서비스 호출
+            boardService.boardUpload(fileMap);
+
+            return ResponseEntity.ok("File uploaded successfully!");
+        } catch (IOException e) {
+            log.error("Error uploading file: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to upload file. Please try again.");
+        }
+    }
+
+    @GetMapping("/board/fileDownload")
+    @ResponseBody
+    public ResponseEntity<Resource> fileDownload(@RequestParam("fno") String fno) {
+        try {
+            int fnoInt = Integer.parseInt(fno);
+            FileVO file = boardService.selectFile(fnoInt);
+            return boardService.fileDownload(file.getOriName());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
 
 }

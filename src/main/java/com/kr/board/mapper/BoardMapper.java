@@ -26,5 +26,8 @@ public interface BoardMapper {
     /* 게시글 삭제 */
     public void boardDelete(Map<String, Object> requestMap);
 
+    /* 파일 업로드 */
+    public void boardUpload(Map<String, Object> requestMap);
+
 
 }

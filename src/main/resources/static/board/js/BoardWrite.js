@@ -15,6 +15,7 @@
 
 
 /* ===================== 유효성 체크 ===================== */
+
     function fnChkValid(){
         let title = document.getElementById("writeTitle").value.trim();         // 글 제목
         let content = document.getElementById("writeContent").value.trim();     // 글 내용
@@ -37,23 +38,25 @@
     }
 
 /* 저장 버튼 */
-    function fnBtnSave(){
-
+    function fnBtnSave() {
         // 유효성 검사
-        if(!fnChkValid()){
+        if (!fnChkValid()) {
             return;
         }
 
         let title = document.getElementById("writeTitle").value;      // 글 제목
         let content = document.getElementById("writeContent").value;  // 글 내용
+        let fileUpload = document.getElementById("fileUpload");       // 파일 업로드
+        let selectedFile = fileUpload.files[0];                       // 업로드한 파일
 
-        // 데이터 설정
+
+        // 텍스트 데이터 설정
         let data = {
             title: title,
-            comment: content
+            comment: content,
         };
 
-        // AJAX 요청
+        // 텍스트 저장 요청
         fetch('/boardInsert', {
             method: 'POST',
             headers: {
@@ -62,10 +65,48 @@
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(result => {
-            console.log('Success:', result);
+        .then(response => {
+            console.log('Success:', response);
+            console.log("fileUpload:", fileUpload);
+            console.log("fileUpload.files:", fileUpload.files);
+            console.log("fileUpload.files.length:", fileUpload.files.length);
+            console.log("selectedFile:", selectedFile);
+
             alert('저장이 완료되었습니다.');
-            window.location.href = "/";
+
+            // 파일이 있는 경우에만 업로드
+            if (selectedFile) {
+                let formData = new FormData();
+                formData.append("file", selectedFile);
+                formData.append("oriName", selectedFile.name);
+                formData.append("no", response.no); // 게시글 번호 포함!
+
+                console.log(`file: ${selectedFile}`);
+                console.log(`oriName: ${selectedFile.name}`);
+                console.log(`no: ${response.no}`);
+                console.log(formData);
+
+
+                $.ajax({
+                    url: '/boardUpload',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+/*                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },*/
+                    success: function (result) {
+                        console.log("파일 업로드 결과:", result);
+                        window.location.href = "/";
+                    },
+                    error: function () {
+                        alert("파일 업로드에 실패했습니다.");
+                    }
+                });
+            } else {
+                window.location.href = "/";
+            }
         })
         .catch(error => {
             console.error('Error:', error);

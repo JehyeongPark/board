@@ -11,12 +11,15 @@
 </head>
 <body>
 <h1>상세보기</h1>
-    <div th:each="board : ${detail}">
-    <input type="hidden" id="No" th:value="${board.NO}">
+    <div class="formContainer" th:each="board : ${detail}">
+    <input type="hidden" id="No" th:value="${board.no}">
         <span>제목</span>
-        <input  id="writeTitle" th:value="${board.TITLE}" type="text">
+        <input  id="writeTitle" th:value="${board.title}" type="text">
         <span>내용</span>
-        <textarea id="writeContent" th:text="${board.COMMENT}" ></textarea>
+        <textarea id="writeContent" th:text="${board.comment}" ></textarea>
+        <div class="fileArea">
+            <div th:text="${board.oriName}" class="fileRegist" id="fileDownload" th:data-fno="${board.fno}"></div>
+        </div>
     </div>
 
     <div>

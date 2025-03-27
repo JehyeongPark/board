@@ -7,6 +7,7 @@
         content: document.getElementById("writeContent").value
     };
     let btnDelete = document.getElementById("btnDelete");
+    let btnFileDownload = document.getElementById("fileDownload");
 
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -18,6 +19,7 @@
         btnClose.addEventListener('click', fnBtnClose);
         btnUpdate.addEventListener('click', fnBtnUpdate);
         btnDelete.addEventListener('click', fnBtnDelete);
+        btnFileDownload.addEventListener('click', fnFileDownload);
     }
 
 
@@ -131,4 +133,17 @@
             console.error('Error:', error);
             alert('저장 중 오류가 발생했습니다.');
         });
+    }
+
+    function fnFileDownload(){
+        let fileNo = btnFileDownload.getAttribute("data-fno");  // 파일 번호
+
+        // 유효성 검사
+        if (!fileNo) {
+            alert("파일 정보가 없습니다.");
+            return;
+        }
+
+        // 바로 다운로드 링크로 이동
+        window.location.href = "/board/fileDownload?fno=" + fileNo;
     }

@@ -1,4 +1,4 @@
-/* 상세보기 페이지 스타일 */
+/* 글쓰기 페이지 스타일과 동일하게 수정된 상세보기 페이지 스타일 */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
@@ -17,16 +17,17 @@ h1 {
     font-size: 24px;
 }
 
-/* 상세보기 컨테이너 */
-div:first-of-type {
+/* 입력 폼 및 파일 업로드 영역을 포함하는 컨테이너 */
+.formContainer {
     background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 500px; /* 크기 키우기 */
+    width: 500px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    box-sizing: border-box;
 }
 
 span {
@@ -34,32 +35,35 @@ span {
     margin-bottom: 5px;
 }
 
-/* 입력 필드 스타일 */
-input[type="text"] {
+input[type="text"],
+textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
-    background-color: #ffffff; /* 흰색 배경 */
-    color: #000; /* 글씨 색 검정 */
 }
 
 #writeContent {
-    height: 120px; /* 내용 입력창 높이 증가 */
+    height: 100px;
 }
 
-/* 버튼 스타일 */
-div:last-child {
+/* 파일 업로드 영역 */
+.fileArea {
+    margin-top: 10px;
+}
+
+/* 버튼 영역 */
+.buttonContainer {
     display: flex;
-    justify-content: center; /* 버튼 가운데 정렬 */
-    width: 500px; /* 크기 키우기 */
+    justify-content: center;
+    width: 500px;
     margin-top: 20px;
-    gap: 10px; /* 버튼 간격 조정 */
+    gap: 10px;
 }
 
-/* 기본 버튼 스타일 */
+/* 버튼 공통 스타일 */
 button {
     color: white;
     border: none;
@@ -67,7 +71,8 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    width: 30%;
+    width: 250px;
+    margin-top: 20px;
 }
 
 /* 수정 버튼 (파란색) */

@@ -9,7 +9,12 @@
         <result column="COMMENT" property="comment"/>
         <result column="REG_DTM" property="regDtm"/>
         <result column="CHG_DTM" property="chgDtm"/>
+        <result column="FNO" property="fno"/>
+        <result column="PARENT" property="parent"/>
+        <result column="NEW_NAME" property="newName"/>
+        <result column="ORI_NAME" property="oriName"/>
     </resultMap>
+
 
     <select id="boardMainCount" parameterType="map" resultType="int">
         <!-- BoardMapper.boardMainCount : 게시판 조회 카운트 -->
@@ -65,7 +70,7 @@
         </if>
     </select>
 
-    <insert id="insertBoard" parameterType="map">
+    <insert id="insertBoard" parameterType="map" useGeneratedKeys="true" keyProperty="no">
         <!-- BoardMapper.insertBoard : 게시글 저장 -->
         INSERT INTO
             BOARD
@@ -82,14 +87,22 @@
         )
     </insert>
 
-    <select id="boardDetail" parameterType="map" resultType="map">
+    <select id="boardDetail" parameterType="map" resultMap="boardMap">
         <!-- BoardMapper.boardDetail : 상세보기 -->
         SELECT
-            NO,
-            TITLE,
-            COMMENT
+            B.NO,
+            B.TITLE,
+            B.COMMENT,
+            COALESCE(F.FNO, '') AS FNO,
+            COALESCE(F.PARENT, '') AS PARENT,
+            COALESCE(F.NEW_NAME, '') AS NEW_NAME,
+            COALESCE(F.ORI_NAME, '') AS ORI_NAME
         FROM
-            BOARD
+            BOARD B
+        LEFT JOIN
+            FILE F
+        ON
+            B.NO = F.PARENT
         WHERE
             NO = #{no}
     </select>
@@ -113,5 +126,13 @@
         WHERE
             NO = #{no}
     </delete>
+
+    <insert id="boardUpload" parameterType="map">
+        <!-- BoardMapper.boardUpload : 파일 업로드 -->
+        INSERT INTO FILE SET
+            PARENT = #{parent},
+            NEW_NAME = #{newName},
+            ORI_NAME = #{oriName}
+    </insert>
 
 </mapper>
