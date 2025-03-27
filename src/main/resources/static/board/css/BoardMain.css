@@ -22,8 +22,26 @@ a:hover {
 }
 
 .buttonArea {
-    margin-left: 86.2%;
+    width: 90%;
+    text-align: right;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
 }
+
+
+.excelButton{
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 88px;
+}
+
 
 /* select 기본 스타일 */
 #selectSrch {
