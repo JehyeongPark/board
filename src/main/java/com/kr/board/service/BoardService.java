@@ -74,30 +74,5 @@ public class BoardService {
         boardMapper.boardUpload(fileMap);
     }
 
-    public ResponseEntity<Resource> fileDownload(String oriName) throws IOException {
-
-        String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 회사
-        /* String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 집 */
-        Path path = Paths.get(uploadPath, oriName);
-
-        String contentType = Files.probeContentType(path);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentDisposition(ContentDisposition.builder("attachment")
-                .filename(oriName)
-                .build());
-
-        headers.add(HttpHeaders.CONTENT_TYPE, contentType);
-        Resource resource = new InputStreamResource(Files.newInputStream(path));
-
-        return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-
-    }
-
-    /* 파일 선택 */
-    public FileVO selectFile(int fno){
-
-        return boardMapper.selectFile(fno);
-    }
 
 }

@@ -135,15 +135,4 @@
         });
     }
 
-    function fnFileDownload(){
-        let fileNo = btnFileDownload.getAttribute("data-fno");  // 파일 번호
-
-        // 유효성 검사
-        if (!fileNo) {
-            alert("파일 정보가 없습니다.");
-            return;
-        }
-
-        // 바로 다운로드 링크로 이동
-        window.location.href = "/board/fileDownload?fno=" + fileNo;
-    }
+   

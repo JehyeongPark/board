@@ -159,18 +159,6 @@ public class BoardController {
         }
     }
 
-    @GetMapping("/board/fileDownload")
-    @ResponseBody
-    public ResponseEntity<Resource> fileDownload(@RequestParam("fno") String fno) {
-        try {
-            int fnoInt = Integer.parseInt(fno);
-            FileVO file = boardService.selectFile(fnoInt);
-            return boardService.fileDownload(file.getOriName());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-
 
 }
 
