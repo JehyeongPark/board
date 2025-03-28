@@ -65,8 +65,7 @@ public class BoardService {
 
         // 새 파일명 생성
         String oriName = (String) requestMap.get("oriName");
-        String tempName = oriName.substring(oriName.lastIndexOf("."));
-        String newName = UUID.randomUUID().toString() + tempName;
+        String newName = (String) requestMap.get("newName");
         int parentNo = (int) requestMap.get("no");
 
         // 파일 정보 Map 구성

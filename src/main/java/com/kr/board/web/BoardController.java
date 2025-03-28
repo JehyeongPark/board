@@ -132,8 +132,6 @@ public class BoardController {
 
         try {
 
-            // 로그 출력
-            log.warn("파일 업로드 시작 - oriName: {}, newName: {}, no: {}", oriName, newName, no);
             // 파일 저장
             Files.write(filePath, file.getBytes());
 
@@ -141,7 +139,7 @@ public class BoardController {
             Map<String, Object> fileMap = new HashMap<>();
             fileMap.put("oriName", oriName);
             fileMap.put("newName", newName);
-            fileMap.put("no", no); // 게시글 번호 추가
+            fileMap.put("no", no);
 
             // 서비스 호출
             boardService.boardUpload(fileMap);
