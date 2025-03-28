@@ -1,15 +1,11 @@
 package com.kr.board.web;
 
+
 import com.kr.board.service.BoardService;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+// 파일 경로 관련
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
+// HTTP 응답 상태 관련
+import org.springframework.http.HttpStatus;
 
 @Slf4j
 @Controller
@@ -131,7 +132,6 @@ public class BoardController {
         Path filePath = Paths.get(uploadPath, newName);
 
         try {
-
             // 파일 저장
             Files.write(filePath, file.getBytes());
 
@@ -151,6 +151,20 @@ public class BoardController {
                     .body("Failed to upload file. Please try again.");
         }
     }
+
+    /* 파일 다운로드 */
+    @GetMapping("/boardFileDownload")
+    @ResponseBody
+    public ResponseEntity<Resource> fileDownload(@RequestParam("fno") String fno) throws IOException {
+        int fnoInt = Integer.parseInt(fno);
+
+        Map<String, Object> fileMap = boardService.selectFile(fnoInt);
+        String oriName = (String) fileMap.get("oriName");
+        String newName = (String) fileMap.get("newName");
+
+        return boardService.fileDownload(oriName, newName);
+    }
+
 
     /* 엑셀 다운로드 */
     @GetMapping("/boardExcel")

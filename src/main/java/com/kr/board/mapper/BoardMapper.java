@@ -28,6 +28,8 @@ public interface BoardMapper {
 
     /* 파일 업로드 */
     public void boardUpload(Map<String, Object> requestMap);
-
+    
+    /* 파일 선택 */
+    List<Map<String, Object>> selectFile(int fnoInt);
 
 }

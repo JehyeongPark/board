@@ -135,4 +135,14 @@
             ORI_NAME = #{oriName}
     </insert>
 
+    <!-- 파일 선택 -->
+    <select id="selectFile" parameterType="map" resultMap="boardMap">
+    SELECT
+        ORI_NAME,
+        NEW_NAME
+    FROM
+        FILE
+    WHERE
+        FNO=#{fno}
+    </select>
 </mapper>

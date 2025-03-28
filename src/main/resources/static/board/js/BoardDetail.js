@@ -135,4 +135,42 @@
         });
     }
 
-   
+/* 파일 다운로드 */
+function fnFileDownload() {
+    let fileNo = btnFileDownload.getAttribute("data-fno");
+
+    fetch('/boardFileDownload?fno=' + fileNo, {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        // Content-Disposition 헤더에서 파일명 추출
+        const disposition = response.headers.get("Content-Disposition");
+        let filename = "downloaded_file";
+        if (disposition && disposition.includes("filename=")) {
+            const match = disposition.match(/filename="?([^"]+)"?/);
+            if (match.length > 1) {
+                filename = decodeURIComponent(match[1]);
+            }
+        }
+
+        return response.blob().then(blob => ({ blob, filename }));
+    })
+    .then(({ blob, filename }) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+        console.error('Download error:', error);
+        alert('파일 다운로드 중 오류가 발생했습니다.');
+    });
+}
