@@ -125,7 +125,7 @@ public class BoardController {
             @RequestParam("no") int no) {
 
         String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 회사
-/*      String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 집 */
+        // String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 집
         String extension = oriName.substring(oriName.lastIndexOf("."));
         String newName = UUID.randomUUID().toString() + extension;
 

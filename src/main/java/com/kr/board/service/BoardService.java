@@ -82,8 +82,8 @@ public class BoardService {
 
     /* 파일 다운로드 */
     public ResponseEntity<Resource> fileDownload(String oriName, String newName) throws IOException {
-        String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file";
-        /* String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 집 */
+        String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file";  // 회사
+        // String uploadPath = "C:\\Users\\박제형\\Desktop\\내 파일\\박제형\\workspace\\file"; // 집
         Path path = Paths.get(uploadPath, newName);
 
         String contentType = Files.probeContentType(path);

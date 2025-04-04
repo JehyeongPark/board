@@ -18,7 +18,8 @@
         <span>내용</span>
         <textarea id="writeContent" th:text="${board.comment}" ></textarea>
         <div class="fileArea">
-            <div class="fileRegist" id="fileDownload" th:text="${board.oriName}"th:data-fno="${board.fno}"></div>
+            <div class="fileRegist" id="fileDownload" th:text="${board.oriName}" th:data-fno="${board.fno}"></div>
+            <div id="fileDelete" class="fileDelete" th:if="${board.fno != null and board.fno != ''}">X</div>
         </div>
     </div>
 
