@@ -72,7 +72,7 @@ public class BoardController {
 
     /* 글 쓰기 */
     @GetMapping("/boardWrite")
-    public String boardWrite(Model model) {
+    public String boardWrite() {
 
         return "board/BoardWrite";
     }
@@ -172,7 +172,12 @@ public class BoardController {
         boardService.downloadExcelFile(requestMap, response);
     }
 
+    /* 로그인 화면 */
+    @GetMapping("/boardLogin")
+    public String boardLogin(){
 
+        return "login/BoardLogin";
+    }
 
 }
 
