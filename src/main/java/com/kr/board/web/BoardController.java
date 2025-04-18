@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +43,14 @@ public class BoardController {
                     @RequestParam(name = "page", defaultValue = "1") int page,
                     @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
                     Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
+            log.warn("로그인 성공 - 사용자: {}", auth.getName());
+        } else {
+            log.warn("로그인되지 않음");
+        }
+
 
         int totalCount = boardService.boardMainCount(requestMap);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
