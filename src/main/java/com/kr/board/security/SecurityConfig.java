@@ -19,7 +19,7 @@ public class SecurityConfig {
         http
                 // 인가(접근권한) 설정
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/boardLogin", "/board/css/**", "/board/js/**").permitAll()  // 경로에 대해서 모든 사용자에게 접근을 허용한다는 의미
+                        .requestMatchers("/", "/boardLogin").permitAll()  // 경로에 대해서 모든 사용자에게 접근을 허용한다는 의미
                         .requestMatchers("/boardLogin").permitAll()
                         .anyRequest().authenticated()
                 )
