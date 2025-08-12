@@ -12,9 +12,6 @@
     <body>
     <h1>게시판</h1>
             <div class="buttonArea">
-                <a th:href="@{/boardLogin}">
-                    <button type="button">로그인</button>
-                </a>
                 <div class="excelButton"><a th:href="@{/boardExcel(selectSrch=${param.selectSrch}, writeSrch=${param.writeSrch})}" class="btn btn-success">엑셀 다운로드</a></div>
                 <button type="button" id="btnWrite">글쓰기</button>
             </div>
